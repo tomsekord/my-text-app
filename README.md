@@ -9,7 +9,6 @@ https://tomsekord.github.io/my-text-app
 - Enter custom text
 - Pick text color
 - Pick background color
-- Toggle between edit and preview view
 
 ## Built With
 - HTML
