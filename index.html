@@ -9,107 +9,100 @@
     body {
       margin: 0;
       height: 100vh;
-
       display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-
-      background-color: white;
       font-family: Arial, sans-serif;
-      transition: background-color 0.3s ease;
     }
 
-    #inputArea {
+    #sidebar {
+      width: 20%;
+      min-width: 180px;
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      gap: 12px;
+      gap: 16px;
+      background: #f5f5f5;
+      border-right: 1px solid #ddd;
+      box-sizing: border-box;
+    }
+
+    #sidebar h2 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    #sidebar label {
+      font-size: 0.9rem;
+      color: #444;
+      margin-bottom: -8px;
     }
 
     input[type="text"] {
-      padding: 12px;
-      font-size: 1.2rem;
-      width: 300px;
-      text-align: center;
+      padding: 10px;
+      font-size: 1rem;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     input[type="color"] {
-      width: 80px;
-      height: 50px;
-      border: none;
+      width: 100%;
+      height: 44px;
+      border: 1px solid #ccc;
       cursor: pointer;
       background: none;
+      padding: 2px;
+      box-sizing: border-box;
     }
 
-    button {
-      padding: 10px 20px;
-      font-size: 1rem;
-      cursor: pointer;
+    #preview {
+      width: 80%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #ffffff;
+      transition: background-color 0.2s ease;
     }
 
-    h1 {
+    #output {
       font-size: 4rem;
       text-align: center;
-    }
-
-    #backButton {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-
-      display: none;
-      padding: 10px 15px;
-      font-size: 1rem;
+      padding: 24px;
+      color: #000000;
     }
   </style>
 </head>
 <body>
 
-  <button id="backButton" onclick="goBack()">Back</button>
+  <div id="sidebar">
+    <h2>Settings</h2>
 
-  <div id="inputArea">
-
+    <label for="textInput">Text</label>
     <input type="text" id="textInput" placeholder="Enter your text">
 
-    <label>Text color:</label>
+    <label for="textColor">Text color</label>
     <input type="color" id="textColor" value="#000000">
 
-    <label>Background color:</label>
+    <label for="bgColor">Background color</label>
     <input type="color" id="bgColor" value="#ffffff">
-
-    <button onclick="showText()">Show Text</button>
-
   </div>
 
-  <h1 id="output"></h1>
+  <div id="preview">
+    <h1 id="output"></h1>
+  </div>
 
   <script>
-    function showText() {
-      let text = document.getElementById("textInput").value;
-      let textColor = document.getElementById("textColor").value;
-      let bgColor = document.getElementById("bgColor").value;
-
-      let output = document.getElementById("output");
-
-      output.textContent = text;
-      output.style.color = textColor;
-
-      // Change background color
-      document.body.style.backgroundColor = bgColor;
-
-      document.getElementById("inputArea").style.display = "none";
-      document.getElementById("backButton").style.display = "block";
+    function updatePreview() {
+      const output = document.getElementById('output');
+      output.textContent = document.getElementById('textInput').value;
+      output.style.color = document.getElementById('textColor').value;
+      document.getElementById('preview').style.backgroundColor = document.getElementById('bgColor').value;
     }
 
-    function goBack() {
-      document.getElementById("inputArea").style.display = "flex";
-      document.getElementById("output").textContent = "";
-      document.getElementById("backButton").style.display = "none";
-
-      // Reset background
-      document.body.style.backgroundColor = "white";
-    }
+    document.getElementById('textInput').addEventListener('input', updatePreview);
+    document.getElementById('textColor').addEventListener('input', updatePreview);
+    document.getElementById('bgColor').addEventListener('input', updatePreview);
   </script>
 
 </body>
